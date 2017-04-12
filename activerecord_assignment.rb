@@ -5,16 +5,24 @@
 
 
 # 1a) Find the genre with the name "Hip Hop/Rap".
-
+Genre.find_by(name: 'Hip Hop/Rap')
 
 
 # 1b) Count how many tracks belong to the "Hip Hop/Rap" genre
-
+genre_id = Genre.find_by(name: 'Hip Hop/Rap').id
+Track.where(genre_id: genre_id).length
 
 
 # 2) Find the total amount of time required to listen to all the tracks in the database.
+time = 0
+Track.all.each do |track|
+time += track.milliseconds
+end
 
+time
 
+#This way is faster
+Track.sum(:milliseconds)
 
 # 3a) Find the highest price of any track that has the media type "MPEG audio file".
 
